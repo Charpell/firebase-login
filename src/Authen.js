@@ -94,6 +94,10 @@ class Authen extends Component {
     signup.classList.add('block')
   }
   
+  google = () => {
+    
+  }
+  
   
   
   render() {
@@ -106,7 +110,8 @@ class Authen extends Component {
         <p>{this.state.err}</p>
         <button id="login" onClick={this.login}>Log In</button>
         <button id="signup" onClick={this.signup}>Sign Up</button>
-        <button id="logout" className="hide" onClick={this.logout}>Log out</button>
+        <button id="logout" className="hide" onClick={this.logout}>Log out</button> <br />
+        <button id="google" className="google" onClick={this.google}>Sign In with Google</button>
       </div>
     )
   }
