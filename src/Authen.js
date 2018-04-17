@@ -13,12 +13,41 @@ firebase.initializeApp(config);
 
 
 class Authen extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      err: ''
+    }
+  }
+
+  login = (event) => {
+    const email = this.refs.email.value;
+    const password = this.refs.pass.value;
+    console.log(email, password)
+
+    const auth = firebase.auth();
+    const promise = auth.signInWithEmailAndPassword(email, password)
+
+    // Handle login Promise
+    promise.catch(e => {
+      var err = e.message;
+      console.log(err);
+      this.setState({ err })
+    })
+  }
+  
   render() {
     return(
       <div>
-        <input id="email" ref="email" type="email" placeholder="Enter your email" /> <br />
-        <input id="pass" ref="pass" type="pass" placeholder="Enter your password" /> <br />
+      <br />
+        <input id="email" ref="email" type="email" placeholder="Enter your email" /> <br /><br />
+        <input id="pass" ref="pass" type="password" placeholder="Enter your password" /> <br /><br />
 
+        <p>{this.state.err}</p>
+        <button onClick={this.login}>Log In</button>
+        <button>Sign Up</button>
+        <button>Log out</button>
       </div>
     )
   }
