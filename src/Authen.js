@@ -29,12 +29,23 @@ class Authen extends Component {
     const auth = firebase.auth();
     const promise = auth.signInWithEmailAndPassword(email, password)
 
-    // Handle login Promise
+    promise.then(user => {
+      var lout = document.getElementById('logout')
+      lout.classList.remove('hide')
+    })
+
     promise.catch(e => {
       var err = e.message;
       console.log(err);
       this.setState({ err })
     })
+    var login = document.getElementById('login')
+    login.classList.add('hide')
+    var signup = document.getElementById('signup')
+    signup.classList.add('hide')
+
+    var lout = document.getElementById('logout')
+    lout.classList.add('block')
   }
 
   signup = () => {
@@ -59,7 +70,30 @@ class Authen extends Component {
       console.log(err)
       this.setState({ err })
     })
+
+    var login = document.getElementById('login')
+    login.classList.add('hide')
+
+    var signup = document.getElementById('signup')
+    signup.classList.add('hide')
+
+    var lout = document.getElementById('logout')
+    lout.classList.add('block')
   }
+
+  logout = () => {
+    firebase.auth().signOut()
+
+    var lout = document.getElementById('logout')
+    lout.classList.add('hide')
+
+    var login = document.getElementById('login')
+    login.classList.add('block')
+
+    var signup = document.getElementById('signup')
+    signup.classList.add('block')
+  }
+  
   
   
   render() {
@@ -70,9 +104,9 @@ class Authen extends Component {
         <input id="pass" ref="pass" type="password" placeholder="Enter your password" /> <br /><br />
 
         <p>{this.state.err}</p>
-        <button onClick={this.login}>Log In</button>
-        <button onClick={this.signup}>Sign Up</button>
-        <button onClick={this.logout}>Log out</button>
+        <button id="login" onClick={this.login}>Log In</button>
+        <button id="signup" onClick={this.signup}>Sign Up</button>
+        <button id="logout" className="hide" onClick={this.logout}>Log out</button>
       </div>
     )
   }
